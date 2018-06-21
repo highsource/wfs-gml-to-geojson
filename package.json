@@ -1,0 +1,38 @@
+{
+	"name": "wfs-gml-to-geojson",
+	"description": "Convert a GML from a Web Feature Service (WFS) to GeoJSON.",
+	"version": "1.0.0",
+	"main": "index.js",
+	"files": [
+		"index.js"
+	],
+	"keywords": [
+		"gml",
+		"geographic markup language",
+		"geojson",
+		"wfs",
+		"web feature service",
+		"parse",
+		"convert",
+		"gis"
+	],
+	"author": "Jannis R <mail@jannisr.de>",
+	"homepage": "https://github.com/derhuerst/wfs-gml-to-geojson",
+	"repository": "derhuerst/wfs-gml-to-geojson",
+	"bugs": "https://github.com/derhuerst/wfs-gml-to-geojson/issues",
+	"license": "ISC",
+	"engines": {
+		"node": ">=6"
+	},
+	"dependencies": {
+	},
+	"devDependencies": {
+		"hyper-xml": "^0.1.1",
+		"tap-spec": "^5.0.0",
+		"tape": "^4.6.3"
+	},
+	"scripts": {
+		"test": "node test.js | tap-spec",
+		"prepublishOnly": "npm test"
+	}
+}
