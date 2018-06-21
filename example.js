@@ -4,4 +4,5 @@ const h = require('hyper-xml')
 
 const toGeoJSON = require('.')
 
-// todo
+const el = // todo
+console.log(toGeoJSON(el))

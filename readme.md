@@ -18,8 +18,20 @@ npm install wfs-gml-to-geojson
 ## Usage
 
 ```js
+const h = require('hyper-xml')
+const parse = require('wfs-gml-to-geojson')
+
+const el = // todo
+
+const geometry = parse(el)
+console.log(geometry)
+```
+
+```js
 // todo
 ```
+
+You may optionally pass in a function to transform coordinates. The default transform is `(x, y) => [x, y]`.
 
 
 ## Contributing
