@@ -29,6 +29,7 @@
 		"deep-strict-equal": "^0.2.0"
 	},
 	"devDependencies": {
+		"@turf/rewind": "^5.1.5",
 		"hyper-xml": "^0.1.1",
 		"tap-spec": "^5.0.0",
 		"tape": "^4.6.3"
