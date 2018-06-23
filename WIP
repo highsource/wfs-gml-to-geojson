@@ -1,0 +1,72 @@
+
+/*
+
+test('pos', (t) => {
+
+	const p = h('gml:pos', ['140. -35']);
+
+	t.deepEqual(parse.parsePos(p), [140, -35])
+	t.end()
+})
+*/
+
+
+
+// gml:Point > gml:PointType
+// gml:PointType > gml:pos
+// gml:PointType > gml:coordinates
+// gml:PointType > gml:coord
+// gml:pointProperty > gml:PointPropertyType
+// gml:pointRep > gml:PointPropertyType
+// gml:PointPropertyType > gml:Point + gml:AssociationAttributeGroup
+// gml:pointArrayProperty > gml:PointArrayPropertyType
+// gml:PointArrayPropertyType > gml:Point
+// gml:pos > gml:DirectPositionType
+// gml:DirectPositionType > gml:doubleList + gml:SRSReferenceGroup
+// gml:posList > gml:DirectPositionListType
+// gml:DirectPositionListType > gml:doubleList + gml:SRSReferenceGroup + @count
+
+
+
+
+const parsePos = (_, ctx, opts) => {
+	const coords = textOf(_)
+	if (!coords) {
+		throw new Error('Invalid gml:pos element, does not seem to contain coordinates.');
+	}
+
+	const childCtx = parseSRSReferenceGroup(_, ctx, opts);
+
+	const points = parseCoords(coords, childCtx, opts);
+
+	if (points.length !== 1) {
+		throw new Error('Invalid gml:pos, must have exactly 1 point.')
+	}
+	else {
+		return points[0];
+	}
+}
+
+
+
+
+
+const parseSRSReferenceGroup = (_, ctx, opts) => {
+	ctx = ctx || { srsDimension: 2 };
+
+	const srsDimensionAttribute = _.attributes && _.attributes.srsDimension;
+	if (srsDimensionAttribute) {
+		const srsDimension = parseInt(srsDimensionAttribute);
+		if (Number.isNaN(srsDimension)) {
+			throw new Error('Invalid srsDimension attribute $(srsDimension) (must be a number).');
+		} else if (srsDimension <= 0) {
+			throw new Error('Invalid srsDimension attribute $(srsDimension) (must be a positive integer).');
+		} else {
+			const childCtx = Object.create(ctx);
+			childCtx.srsDimension = srsDimension;
+			return childCtx;
+		}
+	} else {
+		return ctx;
+	}
+}
